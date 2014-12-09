@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Geolocator</title>
+		<script type="text/javascript" src="lib/zepto.min.js"></script>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript" src="lib/gmaps.js"></script>
+		<link rel="stylesheet" href="estilo.css">
+		<script type="text/javascript">
+			var map, lat, lng, itinerario;
+			$(function(){
+				function marcarDestino(){
+					map.addMarker({lat: lat, lng: lng});
+				};
+
+				//Guarda un destino
+				function guardarDestino(){
+					itinerario.push([lat,lng]);
+					localStorage.itinerario = JSON.stringify(itinerario);
+				};
+
+				//Reiniciar el mapa
+				function restablecer(){
+					if(confirm("¿Reiniciar?") === true){
+						itinerario = [];
+						localStorage.itinerario = "";
+						geolocalizar();
+					}
+				}
+			
+				//Se unen los destinos
+				function unirDestinos(x, y){
+					map.drawRoute({
+						origin: [lat, lng], //Coordenadas anteriores
+						destination: [x, y],
+						travelMode: 'driving',
+						strokeColor: '#000000',
+						strokeOpacity: 0.6,
+						storkeWeight: 5
+					});
+					lat = x; //Se guardan las coordenadas para la siguiente
+					lng = y;
+				};
+
+				function enlazarMarcador(e){
+					unirDestinos(e.latLng.lat(), e.latLng.lng());
+					marcarDestino();
+					guardarDestino();
+				};
+
+				function geolocalizar(){
+					GMaps.geolocate({
+						success: function(position){
+							//Inicio
+							localStorage.itinerario = (localStorage.itinerario || "");
+							if(localStorage.itinerario === ""){//Mostramos nuestra posicion
+								lat = position.coords.latitude;
+								lng = position.coords.longitude;
+								itinerario = [];
+							}
+							else{
+								itinerario = JSON.parse(localStorage.itinerario);
+								lat = itinerario[0][0];
+								lng = itinerario[0][1];
+							}
+							map = new GMaps({ //Muestra el mapa con centro lat y lng
+								el: '#map',
+								lat: lat,
+								lng: lng,
+								click: enlazarMarcador,
+								tap: enlazarMarcador
+							});
+							marcarDestino(); //Marcamos el punto lat,lng
+							if(localStorage.itinerario === "")
+								guardarDestino();
+							for(var i = 1; i < itinerario.length; i++){
+								unirDestinos(itinerario[i][0], itinerario[i][1]);
+								marcarDestino();//Marcamos
+							}
+						},
+						error: function(error){ alert('Error: ' + error.message);},
+						not_supported: function(){ alert("Tu navegador no soporta geolocalización.");},
+					});
+				};
+
+				$('#restablecer').on('click', restablecer); //Para limpiar el mapa
+
+				geolocalizar();
+			});
+		</script>
+	</head>
+	<body>
+		<header>
+			<div class="menuIzq">
+				<img src="common-menu.png" align="left">
+			</div>
+			<div class="titulo">
+				<h1>Geolocator</h1>
+			</div>
+			<img src="common-cancel.png" id="restablecer" >
+		</header>
+
+		<article><div id="map"></div></article>
+	</body>
+</html>

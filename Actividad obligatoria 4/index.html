@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Entrega</title>
+		<script type="text/javascript" src="js/zepto.min.js" > </script>
+		<script type="text/javascript" src="js/touch.js"></script>
+		<script type="text/javascript">
+	  		$(function(){
+	    		localStorage.c = (localStorage.c || "0.00");  //Inicialización del cronómetro
+	    		localStorage.l = (localStorage.l || "");  //Lista de tiempos en los que se ha parado
+
+    			var t, cl = $("#crono"); //Control del cronómetro
+  	 	 		var lis = $("#lista");  //Lista de tiempos en los que se ha parado
+ 	   
+ 	   			var touch = $("#body");  //Para trabajar con los eventos touch
+	    		
+	    		mostrar();//Para mostrar el cronómetro con 0.00
+	    		lis.html(localStorage.l); //Si ya hay tiempos guardados, se muestran
+
+
+
+			    function incr(){ //Se aumenta una centésima el valor del cronómetro 
+			    	localStorage.c = +localStorage.c + 0.01;
+			    };
+
+
+    			function mostrar(){//Se muestra en pantalla el tiempo
+    				cl.html((+localStorage.c).toFixed(2));
+    			};
+
+
+    			function arrancar(){ //Cada centésima de segundo, se ejecuta 
+    				t=setInterval(function(){incr(); mostrar()}, 10);
+    			};
+
+
+    			function parar(){//Se para el cronómetro
+    				clearInterval(t);  
+    				t=undefined; 
+    				anadirLista();
+    			};
+  
+
+    			function cambiar(){//Se cambia el estado del cronómetro
+    				if (!t) 
+    					arrancar(); 
+    				else 
+    					parar();
+    			};
+
+
+    			function anadirLista(){//Se añade un tiempo a la lista
+    				if (localStorage.c === "0.00") //El cronómetro marca, al inicializarse 0.00. No hay que mostrar nada
+    					lis.html("");
+                    else 
+                    	lis.html(localStorage.l + (+localStorage.c).toFixed(2) + "</br>");//Se muestra el tiempo en pantalla
+                        localStorage.l = lis.html();//Se actualiza el almacenamiento local
+                        }
+
+
+                function reIniciar(){ //Si el contador no está funcionando, se ponen los valores por defecto
+    				if (!t) {
+    				localStorage.c="0.00"; 
+    				mostrar(); 
+    				localStorage.l=""; 
+    				anadirLista();}
+    			}
+
+    			$("#cambiar").on('click', cambiar);
+    			$("#inicializar").on('click',reIniciar);
+
+	
+    			touch.on('tap', cambiar);//Se asigna a tap cambiar
+    			touch.on('swipe',reIniciar);//Se asigna a swipe reiniciar'la funcionalidad de inizializar
+
+	  		});
+		</script>
+	</head>
+	<body id="body">
+    <h1>Cronómetro</h1>
+    <h2><span id="crono"> </span>  segundos</h2>
+    <button type="button" id="cambiar"> Comenzar/Parar </button>
+    	<button type="button" id="inicializar"> Inicializar </button>
+    	<h3>Tiempos en los que el cronómetro se ha parado:</h3>
+    	<h4><div id="lista"></div></h4>
+	</body>
+</html>

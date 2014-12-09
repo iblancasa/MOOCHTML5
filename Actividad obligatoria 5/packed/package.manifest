@@ -1,0 +1,24 @@
+{
+  "version": "1.0",
+  "name": "Geolocate",
+  "description": "Aplicación que permite geolocalizar",
+  "package_path": "https://googledrive.com/host/0B5S2gNT5lZpIY2JEbDhQYV9JTDg/packed/package.zip",
+  "icons": {
+    "16":  "/ico_16.png",
+    "48":  "/ico_48.png",
+    "128": "/ico_128.png"
+  },
+  "developer": {
+    "name": "iblancasa",
+    "url": "https://twitter.com/iblancasa"
+  },
+  "default_locate": "es",
+  "permissions": {
+     "geolocation": {
+        "description": "Permite ser geolocalizado"
+       },
+      "storage": {
+        "description": "Permite cacheo"
+      }
+   }
+}

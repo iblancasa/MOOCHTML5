@@ -1,0 +1,63 @@
+@font-face { 
+	font-family: FiraSans; 
+	src: url('FiraSansOT-Regular.otf'); 
+} 
+
+* {  
+  margin: 0;
+  padding: 0;
+}
+
+
+
+#map{
+  display: block;
+  position: absolute; /* posición absoluta a navegador */
+  top: 5rem; /* 50px debajo de borde de navegador */
+  left: 0; /* ajusta a borde de navegador */
+  right: 0;
+  bottom: 0;
+  background: #000000; /* verde si no hay mapa */
+}
+
+
+header{
+	height: 5rem;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	background: -moz-linear-gradient(top, #cd6723, #bb482d);
+	background: -ms-linear-gradient(top, #cd6723, #bb482d);
+	background: -webkit-linear-gradient(top, #cd6723, #bb482d);
+	background: -o-linear-gradient(top, #cd6723, #bb482d);
+	background: linear-gradient(top, #cd6723, #bb482d;);
+}
+
+
+.titulo h1{
+	font-family: FiraSans;
+	font-size: 2.5rem;
+	font-weight: lighter;
+	color: #fff;
+	margin: 0px;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	padding-left: 1rem;
+	font-weight: 400;
+	text-align: left;
+	float: left;
+}
+.menuIzq{
+	height: 5rem;
+	width: 2rem;
+	float: left;
+	margin: 0px;
+	padding: 0px;
+	background-color: #cd6723;
+}
+
+#restablecer{
+	height: 5rem;
+	width: 4rem;
+	float: right;
+}

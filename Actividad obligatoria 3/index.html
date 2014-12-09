@@ -1,0 +1,50 @@
+<html !doctype>
+<html>
+	<head>
+		<title>Ejercicio obligatorio</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+			body{
+				background-color: #aaaaaa;
+			}
+
+			h1{
+				color:#123456;
+				text-align: center;
+			}
+
+			table{
+				background-color: #000000;
+				text-align: center;
+				color: #ffffff;
+				margin-left: 5%;
+				margin-right: 5%;
+				width: 90%;
+			}
+			td{
+				border-width: 2px;
+				border-color: #333333;
+				border-style: solid;
+			}
+
+		</style>
+	</head>
+	<body>
+		<h1>Ejercicio obligatorio 3</h1>
+
+		<table id="tabla"><tr><td><strong>Propiedad</strong></td><td><strong>Valor</strong></td></tr></table>
+
+		<script type="text/javascript">
+			var tabla = document.getElementById("tabla");
+			for (i in location){
+				if (typeof(location[i])==="string"){
+					var texto = location[i];    
+				}else{
+					var texto = "No es imprimible";
+				}
+			tabla.innerHTML += "<tr><td>"+i+"</td><td>" + texto + "</td></tr>";
+			}
+		</script>
+	</body>
+		
+</html>

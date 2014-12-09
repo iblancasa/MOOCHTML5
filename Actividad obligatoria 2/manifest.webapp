@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "name": "Geolocalizacion",
+  "description": "Gmaps y geolocalizacion",
+  "launch_path": "/host/0B5S2gNT5lZpIOWEzRnEzekVPU28/index.html",
+  "size": "340KB",
+  "icons": {
+    "16":  "/host/0B5S2gNT5lZpIOWEzRnEzekVPU28/icons/ico_16.png",
+    "48":  "/host/0B5S2gNT5lZpIOWEzRnEzekVPU28/icons/ico_48.png",
+    "128": "/host/0B5S2gNT5lZpIOWEzRnEzekVPU28/icons/ico_128.png"
+  },
+  
+   "permissions":{
+	"geolocation":{
+		"description":"Obtain the current location of the user."
+	},
+	
+	"storage": {
+		"description": "Improves performance by caching some data locally."
+	}
+  },
+  
+  "developer": {
+    "name": "Elkin Barreto Contreras",
+    "url": "https://www.facebook.com/elkin.b.contreras"
+  }
+}
